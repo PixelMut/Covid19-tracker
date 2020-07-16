@@ -1,0 +1,44 @@
+<div class="ui inverted dimmer" [class.active]='loading'>
+  <div class="ui text loader">Loading</div>
+</div>
+
+<div class="jumbotron bg-white text-center">
+  <h1 class="display-4">Covid 19 Tracker</h1>
+  <hr>
+
+  <div class="mx-auto">
+    <div class="form-group col-lg-5 mx-auto">
+      <label for="c">Select Country</label>
+      <select id="c" class="form-control" name="" #c (change)="onSelectCountry(c.value)">
+        <option value="{{country}}" *ngFor="let country of countries" >{{country}}</option>
+      </select>
+    </div>
+  </div>
+  <app-dashboard-card [totalActive]="totalActive" [totalConfirmed]="totalConfirmed" [totalDeaths]="totalDeaths" [totalRecovered]="totalRecovered"></app-dashboard-card>
+
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Cases</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of selectedCountryData; index as i">
+          <td>{{i+1}}</td>
+          <td>{{c.date | date}}</td>
+          <td>{{c.cases}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <!--<google-chart ></google-chart>-->
+      <google-chart [type]='chart.LineChart' [options]='chart.options' style="width: 100%;" [height]='chart.height' [data]='datatable'></google-chart>
+
+    </div>
+  </div>
+</div>
